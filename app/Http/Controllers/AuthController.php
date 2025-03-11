@@ -12,7 +12,7 @@ class AuthController extends Controller
 
         $fields = $request->validate(
             [
-                'name'=>'required|min:5',
+                'name'=>'required|min:3',
                 'email'=>'required|unique:users',
                 'role'=>'required',
                 'password'=>'required|confirmed|min:6'
@@ -21,6 +21,11 @@ class AuthController extends Controller
             );
 
         $user = User::create($fields);
-        return $user;
+        $token = $user->createToken($user->name);
+
+        return [
+            'user'=>$user,
+            'token'=>$token->palinTextToken
+        ];
     }
 }
