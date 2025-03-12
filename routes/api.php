@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RangeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -9,8 +10,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-Route::apiResource('categories.ranges.products',ProductController::class);
-Route::apiResource('categories.ranges',ProductController::class);
+Route::apiResource('ranges',RangeController::class);
 Route::apiResource('products',ProductController::class);
 
 Route::post('register',[AuthController::class,'register']);
