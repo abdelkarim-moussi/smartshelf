@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+
 use App\Models\Category;
 use App\Models\Range;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -26,17 +26,32 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
-        //
+        $fields = $request->validate(
+            [
+                'name'=>'required|min:3|max:255',
+                'description'=>'required|min:3',
+                'price'=>'required|numeric',
+                'stock'=>'required|int',
+                'promotion'=>'nullable',
+                'range_id'=>'required'
+            ]
+            );
+
+        $product = Product::create($fields);
+
+        return [
+            'product'=>$product
+        ];
     }
 
     /**
@@ -58,7 +73,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(Request $request, Product $product)
     {
         //
     }

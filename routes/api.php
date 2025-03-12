@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('categories.ranges.products',ProductController::class);
 Route::apiResource('categories.ranges',ProductController::class);
+Route::apiResource('products',ProductController::class);
 
 Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
