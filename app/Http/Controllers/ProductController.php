@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
+use App\Models\Range;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Category $category, Range $range)
     {
-        //
+
+        return [
+            'category_id'=>$category->id,
+            'categorie'=>$category->ranges,
+            'products'=>$range->products
+        ];
     }
 
     /**

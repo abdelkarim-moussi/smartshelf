@@ -24,11 +24,11 @@ class DatabaseSeeder extends Seeder
 
         Category::factory()
         ->count(10)
-        ->hasRanges(20)
+        ->hasRanges(5)
         ->create();
 
         Product::factory()
-        ->count(100)
+        ->count(5)
         ->create();
     }
 }

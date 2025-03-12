@@ -26,7 +26,7 @@ class AuthController extends Controller
 
         return [
             'user'=>$user,
-            'token'=>$token->palinTextToken
+            'token'=>$token->plainTextToken
         ];
     }
 

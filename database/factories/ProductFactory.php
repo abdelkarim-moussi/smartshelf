@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\Range;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,7 +26,8 @@ class ProductFactory extends Factory
             'price'=> $price,
             "stock"=> $this->faker->numberBetween(20,100),
             "promotion"=> $promotion,
-            'newPrice'=> $price - ($price * $promotion / 100)
+            'newPrice'=> $price - ($price * $promotion / 100),
+            'range_id'=>Range::factory()
         ];
     }
 }

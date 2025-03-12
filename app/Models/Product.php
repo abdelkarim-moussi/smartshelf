@@ -16,12 +16,14 @@ class Product extends Model
         'price',
         'stock',
         'promotion',
-        'newPrice'
+        'newPrice',
+        'range_id'
     ];
 
 
     public function range(){
-        return $this->belongsTo(Range::class);
+        return $this->belongsTo(Range::class,'range_id');
     }
+
 
 }

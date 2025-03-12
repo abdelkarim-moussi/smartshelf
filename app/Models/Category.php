@@ -15,6 +15,8 @@ class Category extends Model
     ];
 
     public function ranges(){
-        return $this->hasMany(Range::class,'category_id');
+        return $this->hasMany(Range::class);
     }
+
+    
 }

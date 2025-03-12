@@ -16,10 +16,10 @@ class Range extends Model
     ];
 
     public function products(){
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class,'range_id');
     }
 
     public function category(){
-        return $this->belongsTo(Category::class,'category_id');
+        return $this->belongsTo(Category::class);
     }
 }
