@@ -61,5 +61,6 @@ class AuthController extends Controller
         return [
             'message'=>'you are logged out .'
         ];
+        
     }
 }

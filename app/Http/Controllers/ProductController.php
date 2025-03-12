@@ -13,22 +13,11 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Category $category, Range $range)
+    public function index(Product $products)
     {
-
         return [
-            'category_id'=>$category->id,
-            'categorie'=>$category->ranges,
-            'products'=>$range->products
+            'products'=>$products::all()
         ];
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
-    {
-        
     }
 
     /**
@@ -59,23 +48,36 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $product = Product::find($product->id);
+
+        return $product;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $fields = $request->validate(
+            [
+                'name'=>'min:3|max:255',
+                'description'=>'min:3',
+                'price'=>'numeric',
+                'stock'=>'int',
+                'promotion'=>'nullable',
+                'range_id'=>'required'
+            ]
+            );
+
+        $product = Product::where('id',$product->id)->first();
+
+        $product->update($fields);
+        
+        return [
+            'product'=> $product
+        ];
     }
 
     /**
@@ -83,6 +85,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product::where('id',$product->id)->first();
+        $product->delete();
+        return [
+            'message'=>'product deleted succefully .'
+        ];
     }
 }
