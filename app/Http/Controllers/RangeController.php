@@ -13,7 +13,7 @@ class RangeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Range $range)
+    public function index()
     {
         return [
             'ranges'=> Range::all(),
@@ -27,10 +27,20 @@ class RangeController extends Controller
      */
     public function store(Request $request)
     {
-        $fieldes = $request->validate(
+        $fields = $request->validate(
             [
                 'number'=>'required|integer',
                 'category_id'=>'required|'
+            ]
+            );
+
+        $category = DB::table('categories')->insert(
+            $fields
+        );
+
+        return response()->json(
+            [
+                "category"=> $category
             ]
             );
     }
