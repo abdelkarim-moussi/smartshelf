@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Range;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -90,5 +91,24 @@ class ProductController extends Controller
         return [
             'message'=>'product deleted succefully .'
         ];
+    }
+
+
+    public function statistics(){
+
+        $mostSoldProducts = Product::select('products.*')
+        ->join('sales', 'products.id', '=', 'sales.product_id')
+        ->selectRaw('SUM(sales.quantity_sold) as total_sold')
+        ->groupBy('products.id')
+        ->orderBy('total_sold', 'desc')
+        ->take(5)
+        ->get();
+
+        $lowStockProducts = Product::where('quantity', '<', 10)->get();
+
+        return response()->json([
+            'most_sold_products' => $mostSoldProducts,
+            'low_stock_products' => $lowStockProducts,
+        ]);
     }
 }
